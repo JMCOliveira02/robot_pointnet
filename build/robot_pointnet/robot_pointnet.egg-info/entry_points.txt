@@ -1,0 +1,3 @@
+[console_scripts]
+fake_segmentator = robot_pointnet.fake_segmentator:main
+pointnet = robot_pointnet.pointnet:main

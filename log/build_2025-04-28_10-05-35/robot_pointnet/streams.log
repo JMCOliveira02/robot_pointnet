@@ -1,0 +1,49 @@
+[0.832s] Invoking command in '/home/joao/ros2_ws/src/robot_pointnet': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/robot_pointnet build --build-base /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build install --record /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/install.log --single-version-externally-managed install_data
+[1.093s] running egg_info
+[1.093s] creating build/robot_pointnet/robot_pointnet.egg-info
+[1.114s] writing build/robot_pointnet/robot_pointnet.egg-info/PKG-INFO
+[1.114s] writing dependency_links to build/robot_pointnet/robot_pointnet.egg-info/dependency_links.txt
+[1.114s] writing entry points to build/robot_pointnet/robot_pointnet.egg-info/entry_points.txt
+[1.114s] writing requirements to build/robot_pointnet/robot_pointnet.egg-info/requires.txt
+[1.115s] writing top-level names to build/robot_pointnet/robot_pointnet.egg-info/top_level.txt
+[1.115s] writing manifest file 'build/robot_pointnet/robot_pointnet.egg-info/SOURCES.txt'
+[1.156s] reading manifest file 'build/robot_pointnet/robot_pointnet.egg-info/SOURCES.txt'
+[1.157s] writing manifest file 'build/robot_pointnet/robot_pointnet.egg-info/SOURCES.txt'
+[1.157s] running build
+[1.157s] running build_py
+[1.157s] creating /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build
+[1.157s] creating /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib
+[1.157s] creating /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+[1.158s] copying robot_pointnet/__init__.py -> /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+[1.158s] copying robot_pointnet/pointnet.py -> /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+[1.158s] copying robot_pointnet/KDTree.py -> /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+[1.158s] copying robot_pointnet/pointnet_utils.py -> /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+[1.158s] copying robot_pointnet/fake_segmentator.py -> /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+[1.158s] running install
+[1.163s] running install_lib
+[1.184s] creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+[1.185s] copying /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet/__init__.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+[1.185s] copying /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet/pointnet.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+[1.185s] copying /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet/KDTree.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+[1.185s] copying /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet/pointnet_utils.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+[1.185s] copying /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet/fake_segmentator.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+[1.185s] byte-compiling /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet/__init__.py to __init__.cpython-312.pyc
+[1.185s] byte-compiling /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet/pointnet.py to pointnet.cpython-312.pyc
+[1.186s] byte-compiling /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet/KDTree.py to KDTree.cpython-312.pyc
+[1.187s] byte-compiling /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet/pointnet_utils.py to pointnet_utils.cpython-312.pyc
+[1.188s] byte-compiling /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet/fake_segmentator.py to fake_segmentator.cpython-312.pyc
+[1.189s] running install_data
+[1.189s] creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/ament_index
+[1.189s] creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/ament_index/resource_index
+[1.189s] creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/ament_index/resource_index/packages
+[1.189s] copying resource/robot_pointnet -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/ament_index/resource_index/packages
+[1.189s] creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/robot_pointnet/launch
+[1.189s] copying launch/FakeSegmentator.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/robot_pointnet/launch
+[1.190s] copying package.xml -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/robot_pointnet
+[1.190s] running install_egg_info
+[1.212s] Copying build/robot_pointnet/robot_pointnet.egg-info to /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet-0.0.0-py3.12.egg-info
+[1.213s] running install_scripts
+[1.352s] Installing fake_segmentator script to /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/robot_pointnet
+[1.352s] Installing pointnet script to /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/robot_pointnet
+[1.352s] writing list of installed files to '/home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/install.log'
+[1.391s] Invoked command in '/home/joao/ros2_ws/src/robot_pointnet' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py egg_info --egg-base build/robot_pointnet build --build-base /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build install --record /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/install.log --single-version-externally-managed install_data

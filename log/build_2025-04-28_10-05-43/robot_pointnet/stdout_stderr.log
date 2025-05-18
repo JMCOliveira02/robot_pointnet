@@ -1,0 +1,19 @@
+running develop
+running egg_info
+writing robot_pointnet.egg-info/PKG-INFO
+writing dependency_links to robot_pointnet.egg-info/dependency_links.txt
+writing entry points to robot_pointnet.egg-info/entry_points.txt
+writing requirements to robot_pointnet.egg-info/requires.txt
+writing top-level names to robot_pointnet.egg-info/top_level.txt
+reading manifest file 'robot_pointnet.egg-info/SOURCES.txt'
+writing manifest file 'robot_pointnet.egg-info/SOURCES.txt'
+running build_ext
+Creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot-pointnet.egg-link (link to .)
+Installing fake_segmentator script to /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/robot_pointnet
+Installing pointnet script to /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/robot_pointnet
+
+Installed /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet
+running symlink_data
+symbolically linking /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/resource/robot_pointnet -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/ament_index/resource_index/packages
+symbolically linking /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/launch/FakeSegmentator.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/robot_pointnet/launch
+symbolically linking /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/package.xml -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/robot_pointnet

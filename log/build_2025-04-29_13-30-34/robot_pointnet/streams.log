@@ -1,0 +1,18 @@
+[0.879s] Invoking command in '/home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build --no-deps symlink_data
+[1.216s] running develop
+[1.444s] running egg_info
+[1.466s] writing robot_pointnet.egg-info/PKG-INFO
+[1.466s] writing dependency_links to robot_pointnet.egg-info/dependency_links.txt
+[1.467s] writing entry points to robot_pointnet.egg-info/entry_points.txt
+[1.467s] writing requirements to robot_pointnet.egg-info/requires.txt
+[1.467s] writing top-level names to robot_pointnet.egg-info/top_level.txt
+[1.509s] reading manifest file 'robot_pointnet.egg-info/SOURCES.txt'
+[1.510s] writing manifest file 'robot_pointnet.egg-info/SOURCES.txt'
+[1.532s] running build_ext
+[1.532s] Creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot-pointnet.egg-link (link to .)
+[1.532s] Installing fake_segmentator script to /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/robot_pointnet
+[1.533s] Installing pointnet script to /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/robot_pointnet
+[1.533s] 
+[1.533s] Installed /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet
+[1.533s] running symlink_data
+[1.578s] Invoked command in '/home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet' returned '0': DEBUGINFOD_URLS=https://debuginfod.ubuntu.com PYTHONPATH=/home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/prefix_override:/usr/lib/python3/dist-packages/colcon_core/task/python/colcon_distutils_commands:/home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages:${PYTHONPATH} /usr/bin/python3 -W ignore:setup.py install is deprecated -W ignore:easy_install command is deprecated setup.py develop --editable --build-directory /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build --no-deps symlink_data

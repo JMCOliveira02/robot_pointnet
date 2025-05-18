@@ -1,0 +1,17 @@
+package.xml
+setup.cfg
+setup.py
+launch/FakeSegmentator.py
+resource/robot_pointnet
+robot_pointnet/KDTree.py
+robot_pointnet/__init__.py
+robot_pointnet/fake_segmentator.py
+robot_pointnet/pointnet.py
+robot_pointnet/pointnet_utils.py
+robot_pointnet.egg-info/PKG-INFO
+robot_pointnet.egg-info/SOURCES.txt
+robot_pointnet.egg-info/dependency_links.txt
+robot_pointnet.egg-info/entry_points.txt
+robot_pointnet.egg-info/requires.txt
+robot_pointnet.egg-info/top_level.txt
+robot_pointnet.egg-info/zip-safe

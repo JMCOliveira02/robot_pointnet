@@ -1,0 +1,47 @@
+running egg_info
+creating build/robot_pointnet/robot_pointnet.egg-info
+writing build/robot_pointnet/robot_pointnet.egg-info/PKG-INFO
+writing dependency_links to build/robot_pointnet/robot_pointnet.egg-info/dependency_links.txt
+writing entry points to build/robot_pointnet/robot_pointnet.egg-info/entry_points.txt
+writing requirements to build/robot_pointnet/robot_pointnet.egg-info/requires.txt
+writing top-level names to build/robot_pointnet/robot_pointnet.egg-info/top_level.txt
+writing manifest file 'build/robot_pointnet/robot_pointnet.egg-info/SOURCES.txt'
+reading manifest file 'build/robot_pointnet/robot_pointnet.egg-info/SOURCES.txt'
+writing manifest file 'build/robot_pointnet/robot_pointnet.egg-info/SOURCES.txt'
+running build
+running build_py
+creating /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build
+creating /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib
+creating /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+copying robot_pointnet/__init__.py -> /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+copying robot_pointnet/pointnet.py -> /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+copying robot_pointnet/KDTree.py -> /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+copying robot_pointnet/pointnet_utils.py -> /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+copying robot_pointnet/fake_segmentator.py -> /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet
+running install
+running install_lib
+creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+copying /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet/__init__.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+copying /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet/pointnet.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+copying /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet/KDTree.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+copying /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet/pointnet_utils.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+copying /home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/build/lib/robot_pointnet/fake_segmentator.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet
+byte-compiling /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet/__init__.py to __init__.cpython-312.pyc
+byte-compiling /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet/pointnet.py to pointnet.cpython-312.pyc
+byte-compiling /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet/KDTree.py to KDTree.cpython-312.pyc
+byte-compiling /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet/pointnet_utils.py to pointnet_utils.cpython-312.pyc
+byte-compiling /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet/fake_segmentator.py to fake_segmentator.cpython-312.pyc
+running install_data
+creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/ament_index
+creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/ament_index/resource_index
+creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/ament_index/resource_index/packages
+copying resource/robot_pointnet -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/ament_index/resource_index/packages
+creating /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/robot_pointnet/launch
+copying launch/FakeSegmentator.py -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/robot_pointnet/launch
+copying package.xml -> /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/share/robot_pointnet
+running install_egg_info
+Copying build/robot_pointnet/robot_pointnet.egg-info to /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/python3.12/site-packages/robot_pointnet-0.0.0-py3.12.egg-info
+running install_scripts
+Installing fake_segmentator script to /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/robot_pointnet
+Installing pointnet script to /home/joao/ros2_ws/src/robot_pointnet/install/robot_pointnet/lib/robot_pointnet
+writing list of installed files to '/home/joao/ros2_ws/src/robot_pointnet/build/robot_pointnet/install.log'
