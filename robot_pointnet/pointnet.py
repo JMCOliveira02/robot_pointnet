@@ -4,7 +4,7 @@ from sensor_msgs.msg import PointCloud2
 from sensor_msgs_py import point_cloud2
 from std_msgs.msg import Header
 import numpy as np
-#from .pointnet_utils import *
+from .pointnet_utils import *
 import os
 import json
 

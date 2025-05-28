@@ -9,8 +9,10 @@ from webots_ros2_driver.webots_controller import WebotsController
 
 def generate_launch_description():
     world_dir = get_package_share_directory('robot_worlds')
+    pointnet_dir = get_package_share_directory('robot_pointnet')
     robot_description_path = os.path.join(world_dir, 'urdf', 'robot.urdf')
-    world_setup = 'iilab_test'
+    world_setup = 'iilab'
+    rviz_config = os.path.join(pointnet_dir, 'rviz', 'fake_segmentator.rviz')
 
     robot_controller = WebotsController(
         robot_name='robot',
@@ -37,13 +39,21 @@ def generate_launch_description():
         package="tf2_ros",
         executable="static_transform_publisher",
         name="map_to_lidar_broadcaster",
-        arguments=["0", "0", "0", "0", "0", "0", "base_footprint_real", "lidar2D"]
+        arguments=["0", "0", "0", "0", "0", "0", "base_footprint_real", "lidar3D"]
     )
 
     fake_segmentator = Node(
         package = "robot_pointnet",
         executable="fake_segmentator",
         name="fake_segmentator"
+    )
+
+    rviz = Node(
+        package='rviz2',
+        executable='rviz2',
+        name='rviz2',
+        arguments=['-d', rviz_config],
+        output='screen'
     )
 
 
@@ -53,6 +63,7 @@ def generate_launch_description():
         fake_segmentator,
         robot_controller,
         teleop,
+        rviz,
         launch.actions.RegisterEventHandler(
             event_handler=launch.event_handlers.OnProcessExit(
                 target_action=webots,

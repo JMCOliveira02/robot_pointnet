@@ -25,7 +25,7 @@ class SceneSegmentor(Node):
         super().__init__('scene_segmentor')
         self.subscription = self.create_subscription(
             PointCloud2,
-            '/scan/point_cloud',  # Change to your topic
+            '/scan3D/point_cloud',  # Change to your topic
             self.pointcloud_callback,
             10
         )
