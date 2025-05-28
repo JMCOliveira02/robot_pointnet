@@ -39,7 +39,7 @@ def generate_launch_description():
         package="tf2_ros",
         executable="static_transform_publisher",
         name="map_to_lidar_broadcaster",
-        arguments=["0", "0", "0", "0", "0", "0", "base_footprint_real", "lidar3D"]
+        arguments=["0.13", "0", "0.25", "0", "0", "0", "base_footprint_real", "lidar3D"]
     )
 
     fake_segmentator = Node(

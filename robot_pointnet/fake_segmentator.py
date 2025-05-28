@@ -30,7 +30,7 @@ class SceneSegmentor(Node):
             10
         )
         self.publisher = self.create_publisher(PointCloud2, '/segmented_cloud', 10)
-        self.get_logger().info("SceneSegmentor node started.")
+        #self.get_logger().info("SceneSegmentor node started.")
         self.save = True
 
         #segmentation_model = get_shape_segmentation_model(num_points=1024, num_classes=5)
@@ -40,7 +40,7 @@ class SceneSegmentor(Node):
         self.np_points=np.zeros((1000, 3))
 
         self.target_frame = "map"
-        self.pcl_frame = "base_footprint_real"
+        self.pcl_frame = "lidar3D"
         self.lidar_tf_buffer = tf2_ros.Buffer()
         self.lidar_tf_listener = tf2_ros.TransformListener(self.lidar_tf_buffer, self)
         self.timer = self.create_timer(1, self.publish_segmented_pcl)
@@ -68,10 +68,10 @@ class SceneSegmentor(Node):
 
 
     def pointcloud_callback(self, msg: PointCloud2):
-        self.get_logger().info("x")
+        #self.get_logger().info("x")
         segmented_pcl = PointCloud2()
 
-        self.get_logger().info("x")
+        #self.get_logger().info("x")
         segmented_pcl = PointCloud2()
         lidar_to_map_tf = tf2_ros.TransformStamped()
 
@@ -80,44 +80,48 @@ class SceneSegmentor(Node):
             pcl_map = do_transform_cloud(msg, lidar_to_map_tf)
             # Check that the result is not None
             if pcl_map is None:
-                self.get_logger().error("pcl_map is None after transformation")
+                #self.get_logger().error("pcl_map is None after transformation")
                 return
             # Check the type
             if not isinstance(pcl_map, PointCloud2):
-                self.get_logger().error("pcl_map is not a PointCloud2 message")
+                #self.get_logger().error("pcl_map is not a PointCloud2 message")
                 return
             # Check if the point cloud has any points
             if pcl_map.width == 0 or pcl_map.height == 0:
-                self.get_logger().warn("Transformed point cloud is empty")
+                #self.get_logger().warn("Transformed point cloud is empty")
                 return
             # Optionally log its size
-            self.get_logger().info(f"pcl_map width: {pcl_map.width}, height: {pcl_map.height}")
+            #self.get_logger().info(f"pcl_map width: {pcl_map.width}, height: {pcl_map.height}")
 
             # Try reading the actual points to confirm usability
             self.np_points = point_cloud2.read_points_numpy(pcl_map, field_names=("x", "y", "z"), skip_nans=True)
-            self.get_logger().info(f"Valid transformed point cloud with {self.np_points.shape[0]} points")
+            #self.get_logger().info(f"Valid transformed point cloud with {self.np_points.shape[0]} points")
             return
         except Exception as e:
-            self.get_logger().error(f"Error during point cloud transform or validation: {e}")
+            #self.get_logger().error(f"Error during point cloud transform or validation: {e}")
             return
     def pointcloud_save(self, msg:PointCloud2):
         return
         np_points = point_cloud2.read_points_numpy(msg, field_names=("x", "y", "z"), skip_nans=True)
         np.save("/home/joao/ros2_ws/src/robot_pointnet/lidar_reading.npy", np_points)
-        self.get_logger().info("Saved Pointcloud")
+        #self.get_logger().info("Saved Pointcloud")
 
     def publish_segmented_pcl(self):
         #inds = np.zeros(len(np_points), dtype=np.uint8)
         time_start = time.time()
+        min = np.min(self.np_points[:, 2])
+        #min = 3
+        #print(min.shape)
+        self.get_logger().info(f"Min Z: {min}")
         distances, indices = self.kd_tree.query(self.np_points, k=1)
         nearest_labels = self.all_labels[indices.flatten()]
         distance_threshold = 0.5
         nearest_labels[distances.flatten() > distance_threshold] = 3
         colors = color_map[nearest_labels]
-        self.get_logger().info(f"shape da colors {colors.shape}")
+        #self.get_logger().info(f"shape da colors {colors.shape}")
         rgb_pcl = self.create_rgb_pcl(self.np_points, colors, "map")
         duration = time.time() - time_start
-        self.get_logger().info(f"Query and pcl creation took {duration:.6f} seconds")
+        #self.get_logger().info(f"Query and pcl creation took {duration:.6f} seconds")
         self.publisher.publish(rgb_pcl)
 
         return 
