@@ -1,87 +1,163 @@
-import rclpy
-from rclpy.node import Node
-from sensor_msgs.msg import PointCloud2
-from sensor_msgs_py import point_cloud2
-from std_msgs.msg import Header
+import torch
+import torch.nn as nn
+import torch.nn.parallel
+import torch.utils.data
+from torch.autograd import Variable
 import numpy as np
-from .pointnet_utils import *
-import os
-import json
+import torch.nn.functional as F
 
 
+class STN3d(nn.Module):
+    def __init__(self, channel):
+        super(STN3d, self).__init__()
+        self.conv1 = torch.nn.Conv1d(channel, 64, 1)
+        self.conv2 = torch.nn.Conv1d(64, 128, 1)
+        self.conv3 = torch.nn.Conv1d(128, 1024, 1)
+        self.fc1 = nn.Linear(1024, 512)
+        self.fc2 = nn.Linear(512, 256)
+        self.fc3 = nn.Linear(256, 9)
+        self.relu = nn.ReLU()
 
-class SceneSegmentor(Node):
-    def __init__(self):
-        super().__init__('scene_segmentor')
-        self.subscription = self.create_subscription(
-            PointCloud2,
-            '/rbgd_cloud',  # Change to your topic
-            self.pointcloud_callback,
-            10
-        )
-        self.publisher = self.create_publisher(PointCloud2, '/segmented_cloud', 10)
-        self.get_logger().info("SceneSegmentor node started.")
-        self.save = True
+        self.bn1 = nn.BatchNorm1d(64)
+        self.bn2 = nn.BatchNorm1d(128)
+        self.bn3 = nn.BatchNorm1d(1024)
+        self.bn4 = nn.BatchNorm1d(512)
+        self.bn5 = nn.BatchNorm1d(256)
 
-        #segmentation_model = get_shape_segmentation_model(num_points=1024, num_classes=5)
-        #print(os.path.abspath(__file__))
-        #segmentation_model.load_weights("PTNET.weights.h5")
+    def forward(self, x):
+        batchsize = x.size()[0]
+        x = F.relu(self.bn1(self.conv1(x)))
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = F.relu(self.bn3(self.conv3(x)))
+        x = torch.max(x, 2, keepdim=True)[0]
+        x = x.view(-1, 1024)
 
-    def pointcloud_callback(self, msg: PointCloud2):
-        if not self.save:
-            return
-        self.save = False
-        # Read point cloud dat
+        x = F.relu(self.bn4(self.fc1(x)))
+        x = F.relu(self.bn5(self.fc2(x)))
+        x = self.fc3(x)
 
-        # Read point cloud into numpy array
-        self.get_logger().info("Received point cloud message.")
-        points = []
-        for point in point_cloud2.read_points(msg, field_names=("x", "y", "z"), skip_nans=True):
-            x, y, z = point
-            points.append((x, y, z))
-
-        points = np.array(points)
-
-        np.save("/home/joao/points.npy", points)
-
-        # Build a new list of (x, y, z, rgb)
-        colored_points = []
-        for x, y, z in points:
-            if z < 0.03:
-                r, g, b = 0, 255, 0  # Floor -> Green
-            elif z < 1.5:
-                r, g, b = 0, 0, 255  # Wall -> Blue
-            else:
-                r, g, b = 255, 0, 0  # Ceiling -> Red
-
-            rgb = (r << 16) | (g << 8) | b
-            colored_points.append((x, y, z, rgb))
-
-        # Create output cloud
-        header = Header()
-        header.stamp = msg.header.stamp
-        header.frame_id = msg.header.frame_id
-
-        colored_cloud = point_cloud2.create_cloud(
-            header,
-            fields=[
-                point_cloud2.PointField(name='x', offset=0, datatype=point_cloud2.PointField.FLOAT32, count=1),
-                point_cloud2.PointField(name='y', offset=4, datatype=point_cloud2.PointField.FLOAT32, count=1),
-                point_cloud2.PointField(name='z', offset=8, datatype=point_cloud2.PointField.FLOAT32, count=1),
-                point_cloud2.PointField(name='rgb', offset=12, datatype=point_cloud2.PointField.UINT32, count=1),
-            ],
-            points=colored_points
-        )
-
-        self.publisher.publish(colored_cloud)
+        iden = Variable(torch.from_numpy(np.array([1, 0, 0, 0, 1, 0, 0, 0, 1]).astype(np.float32))).view(1, 9).repeat(
+            batchsize, 1)
+        if x.is_cuda:
+            iden = iden.cuda()
+        x = x + iden
+        x = x.view(-1, 3, 3)
+        return x
 
 
-def main(args=None):
-    rclpy.init(args=args)
-    node = SceneSegmentor()
-    rclpy.spin(node)
-    node.destroy_node()
-    rclpy.shutdown()
+class STNkd(nn.Module):
+    def __init__(self, k=64):
+        super(STNkd, self).__init__()
+        self.conv1 = torch.nn.Conv1d(k, 64, 1)
+        self.conv2 = torch.nn.Conv1d(64, 128, 1)
+        self.conv3 = torch.nn.Conv1d(128, 1024, 1)
+        self.fc1 = nn.Linear(1024, 512)
+        self.fc2 = nn.Linear(512, 256)
+        self.fc3 = nn.Linear(256, k * k)
+        self.relu = nn.ReLU()
 
-if __name__ == '__main__':
-    main()
+        self.bn1 = nn.BatchNorm1d(64)
+        self.bn2 = nn.BatchNorm1d(128)
+        self.bn3 = nn.BatchNorm1d(1024)
+        self.bn4 = nn.BatchNorm1d(512)
+        self.bn5 = nn.BatchNorm1d(256)
+
+        self.k = k
+
+    def forward(self, x):
+        batchsize = x.size()[0]
+        x = F.relu(self.bn1(self.conv1(x)))
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = F.relu(self.bn3(self.conv3(x)))
+        x = torch.max(x, 2, keepdim=True)[0]
+        x = x.view(-1, 1024)
+
+        x = F.relu(self.bn4(self.fc1(x)))
+        x = F.relu(self.bn5(self.fc2(x)))
+        x = self.fc3(x)
+
+        iden = Variable(torch.from_numpy(np.eye(self.k).flatten().astype(np.float32))).view(1, self.k * self.k).repeat(
+            batchsize, 1)
+        if x.is_cuda:
+            iden = iden.cuda()
+        x = x + iden
+        x = x.view(-1, self.k, self.k)
+        return x
+
+
+class PointNetEncoder(nn.Module):
+    def __init__(self, feature_transform=False, channel=3):
+        super(PointNetEncoder, self).__init__()
+        self.stn = STN3d(channel)
+        self.conv1 = torch.nn.Conv1d(channel, 64, 1)
+        self.conv2 = torch.nn.Conv1d(64, 128, 1)
+        self.conv3 = torch.nn.Conv1d(128, 1024, 1)
+        self.bn1 = nn.BatchNorm1d(64)
+        self.bn2 = nn.BatchNorm1d(128)
+        self.bn3 = nn.BatchNorm1d(1024)
+        #self.global_feat = global_feat
+        self.feature_transform = feature_transform
+        if self.feature_transform:
+            self.fstn = STNkd(k=64)
+
+    def forward(self, x, global_feat = False):
+        B, D, N = x.size()
+
+        trans = self.stn(x)
+        x = x.transpose(2, 1)
+        if D > 3:
+            feature = x[:, :, 3:]
+            x = x[:, :, :3]
+        x = torch.bmm(x, trans)
+        if D > 3:
+            x = torch.cat([x, feature], dim=2)
+        x = x.transpose(2, 1)
+
+        x = F.relu(self.bn1(self.conv1(x)))
+
+        if self.feature_transform:
+            trans_feat = self.fstn(x)
+            x = x.transpose(2, 1)
+            x = torch.bmm(x, trans_feat)
+            x = x.transpose(2, 1)
+        else:
+            trans_feat = None
+
+        pointfeat = x
+        x = F.relu(self.bn2(self.conv2(x)))
+        x = self.bn3(self.conv3(x))
+        x = torch.max(x, 2, keepdim=True)[0]
+        x = x.view(-1, 1024)
+        if global_feat:
+            return x, trans, trans_feat
+        else:
+            x = x.view(-1, 1024, 1).repeat(1, 1, N)
+            return torch.cat([x, pointfeat], 1), trans, trans_feat
+
+
+class get_model(nn.Module):
+    def __init__(self, num_class, num_channel=3):
+        super(get_model, self).__init__()
+        self.k = num_class
+        self.feat = PointNetEncoder(feature_transform=True, channel=num_channel)
+        self.conv1 = torch.nn.Conv1d(1088, 512, 1)
+        self.conv2 = torch.nn.Conv1d(512, 256, 1)
+        self.conv3 = torch.nn.Conv1d(256, 128, 1)
+        self.conv4 = torch.nn.Conv1d(128, self.k, 1)
+        self.bn1 = nn.BatchNorm1d(512)
+        self.bn2 = nn.BatchNorm1d(256)
+        self.bn3 = nn.BatchNorm1d(128)
+
+    def forward(self, x):
+        batchsize = x.size()[0]
+        n_pts = x.size()[2]
+        descriptor, trans, trans_feat = self.feat(x, global_feat = False)
+        global_descriptor = descriptor[0, :1024, 0].cpu().detach().numpy()
+        x = F.relu(self.bn1(self.conv1(descriptor)), inplace=True)
+        x = F.relu(self.bn2(self.conv2(x)), inplace=True)
+        x = F.relu(self.bn3(self.conv3(x)), inplace=True)
+        x = self.conv4(x)
+        x = x.transpose(2,1).contiguous()
+        x = F.log_softmax(x.view(-1,self.k), dim=-1)
+        x = x.view(batchsize, n_pts, self.k)
+        return global_descriptor, x, trans_feat

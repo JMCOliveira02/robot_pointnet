@@ -14,9 +14,9 @@ import os
 import json
 
 color_map = np.array([
-    [255, 0, 0],    #red is wall
-    [0, 255, 0],    #green is ceiling
-    [0, 0, 255],    #blue is floor
+    [0, 0, 255],    #red is wall
+    [255, 0, 0],    #green is ceiling
+    [0, 255, 0],    #blue is floor
     [0, 0, 0]       #black is unknown
 ], dtype=np.uint8)
 
@@ -52,7 +52,7 @@ class SceneSegmentor(Node):
         for p, c in zip(points, colors):
             # Pack color (BGR) into a single float for PointField
             rgb = struct.unpack('f', struct.pack('I', 
-                        (int(c[2]) << 16) | (int(c[1]) << 8) | int(c[0])))[0]
+                        (int(c[0]) << 16) | (int(c[1]) << 8) | int(c[2])))[0]
             cloud_points.append([p[0], p[1], p[2], rgb])
 
         header = std_msgs.msg.Header()
